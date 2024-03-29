@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 import random
-import sys
 import os
 import pandas as pd
 import yaml
@@ -18,7 +17,8 @@ def extract_csv_urls(base_url, year):
     for link in soup.find_all('a'):
         href = link.get('href')
         if href.endswith('.csv'):
-            csv_urls.append(href)                             # Returns the list of all file names for the given year
+            csv_urls.append(url+href)                             # Returns the list of all file names for the given year
+    print("Extracted all CSV file names from year ", year, " !")
     return csv_urls                                           # Used for sampling and finding the right files 
 
 ##########################################
@@ -80,16 +80,10 @@ def validate_dataset(filenames):
 def main():
     params = yaml.safe_load(open("params.yaml"))["download"]
     
-    if len(sys.argv) != 2:
-        sys.stderr.write("Arguments error. Usage:\n")
-        sys.stderr.write("\tpython prepare.py data-file\n")
-        sys.exit(1)
-
     year = params["year"]
     n_loc = params["n_loc"]
-
     base_url = 'https://www.ncei.noaa.gov/data/local-climatological-data/access/'
-    csv_download_path = '\\wsl.localhost\Ubuntu-22.04\home\laog\ass_3\data'
+    csv_download_path = r'\\wsl.localhost\Ubuntu-22.04\home\laog\CS5830_Assignment_3\ass_3\data'
     all_csv_urls = extract_csv_urls(base_url, year)                                 
 
     num_of_valid_files = 0
@@ -101,7 +95,7 @@ def main():
         final_valid_files.append(valid_files)
         num_of_valid_files += len(valid_files)
     
-    if num_of_valid_files > n_loc:                              # Don't consider any excess files; Ex: Say n_loc = 5, and you get 2 valid files per smapling, 
+    if num_of_valid_files > n_loc:                              # Don't consider any excess files; Ex: Say n_loc = 5, and you get 2 valid files per sampling, 
         excess_num_of_files = num_of_valid_files - n_loc        # then you end up with 6 valid files. Don't consider the last file.
         final_valid_files = final_valid_files[:len(final_valid_files)- excess_num_of_files]
 
