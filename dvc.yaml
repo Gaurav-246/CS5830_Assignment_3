@@ -1,6 +1,10 @@
 stages:
   download:
-    cmd: -d src/download.py -o data/ python src/download.py
+    cmd: python src/download.py
+    deps:
+    - src/download.py 
     params:
     - download.year
     - download.n_loc
+    outs:
+    - data/ 
