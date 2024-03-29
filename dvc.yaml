@@ -1,0 +1,5 @@
+stages:
+  download:
+    cmd: download.n_loc -d src/download.py -o data/ python src/download.py
+    params:
+    - download.year
