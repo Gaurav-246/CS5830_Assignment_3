@@ -8,5 +8,3 @@ stages:
     - download.year
     outs:
     - ass_3/data/
-
-

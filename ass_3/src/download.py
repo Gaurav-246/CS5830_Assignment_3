@@ -9,7 +9,7 @@ import yaml
 # FUNCTION TO RETURN ALL CSV FILE NAMES FOR A GIVEN YEAR
 #########################################################
 def extract_csv_urls(base_url, year):                                   
-
+    
     url = base_url + str(year) + '/'
     valid_files = ['72798594276.csv','72582524121.csv','99999913724.csv','72642504841.csv','72475593129.csv',
                     '74612093104.csv','99999954808.csv','72330003975.csv','72668594052.csv','72399014711.csv',
@@ -83,12 +83,12 @@ def main():
     year = params["year"]
     n_loc = params["n_loc"]
     base_url = 'https://www.ncei.noaa.gov/data/local-climatological-data/access/'
-    csv_download_path = '/home/laog/CS5830_Assignment_3/ass_3/data'
+    csv_download_path = '/home/laog/CS5830_Assignment_3/ass_3/data'    # Path for downloading CSVs
     all_csv_urls = extract_csv_urls(base_url, year)                                 
 
     num_of_valid_files = 0
     final_valid_files = []
-    if not os.path.exists (csv_download_path) :
+    if not os.path.exists (csv_download_path) :                 # Creates the folder corresponding to the above path
         os.makedirs(csv_download_path)
         print('Created data dir')
 
