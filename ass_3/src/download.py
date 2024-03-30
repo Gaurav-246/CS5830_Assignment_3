@@ -11,14 +11,14 @@ import yaml
 def extract_csv_urls(base_url, year):                                   
 
     url = base_url + str(year) + '/'
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
+    valid_files = ['72798594276.csv','72582524121.csv','99999913724.csv','72642504841.csv','72475593129.csv',
+                    '74612093104.csv','99999954808.csv','72330003975.csv','72668594052.csv','72399014711.csv',
+                    '72651794039.csv','74787012834.csv','72381523161.csv']      # List of some valid file names for the year 2023
     csv_urls = []
-    for link in soup.find_all('a'):
-        href = link.get('href')
-        if href.endswith('.csv'):
-            csv_urls.append(url+href)                             # Returns the list of all file names for the given year
-    print("Extracted all CSV file names from year ", year, " !")
+    for item in valid_files:
+        item = url + item
+        csv_urls.append(item)
+    print("Returning some valid CSV file names from year ", year, " !")
     return csv_urls                                           # Used for sampling and finding the right files 
 
 ##########################################
@@ -32,7 +32,7 @@ def download_dataset(n_loc, csv_urls, download_path):
     for csv_url in random_csv_urls:
         filename = os.path.join(download_path, csv_url.split('/')[-1])
         filenames.append(filename)
-        print('Downloading file ', i+1,' : ', filename)
+        print('Downloading file ', i+1,' : ', filename[-14:])
         response = requests.get(csv_url)
         with open(filename, 'wb') as f:                       # Downloads the files to the download_path
             f.write(response.content)        
@@ -63,12 +63,12 @@ def validate_dataset(filenames):
         
         for common_col in common_col_names:
             if df['Daily'+common_col].count()!=0 and df['Monthly'+common_col].count()!=0:       # Store only valid csv files
-                print('The file ', filename.split('/')[-1], ' is valid with daily and monthly data existing for the column : ', common_col)
+                print('The file ', filename[-14:], ' is valid with daily and monthly data existing for the column : ', common_col)
                 valid_csv_files.append(filename)             
             else:
-                print('The file ', filename.split('/')[-1], ' is invalid')
+                print('The file ', filename[-14:], ' is invalid')
                 os.remove(filename)                                                             # Delete the invlid csv files
-                print('File ', filename.split('/')[-1], 'deleted')
+                print('File ', filename[-14:], 'deleted')
 
     print('Total number of sampled files : ', len(filenames))
     print('Number of valid files are : ', len(valid_csv_files))
@@ -97,7 +97,7 @@ def main():
     
     if num_of_valid_files > n_loc:                              # Don't consider any excess files; Ex: Say n_loc = 5, and you get 2 valid files per sampling, 
         excess_num_of_files = num_of_valid_files - n_loc        # then you end up with 6 valid files. Don't consider the last file.
-        final_valid_files = final_valid_files[:len(final_valid_files)- excess_num_of_files]
+        final_valid_files = final_valid_files[:len(final_valid_files) - excess_num_of_files]
 
 
 if __name__ == "__main__":
