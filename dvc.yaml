@@ -1,10 +1,12 @@
 stages:
   download:
-    cmd: python ass_3/src/download.py
+    cmd: python3 ass_3/src/download.py
     deps:
-    - src/download.py
+    - ass_3/src/download.py
     params:
     - download.n_loc
     - download.year
     outs:
-    - ass_3/data
+    - ass_3/data/
+
+

@@ -1,0 +1,19 @@
+schema: '2.0'
+stages:
+  download:
+    cmd: python3 ass_3/src/download.py
+    deps:
+    - path: ass_3/src/download.py
+      hash: md5
+      md5: 5fb645d2f5d3c9d42daa7583a9b0ffb7
+      size: 5186
+    params:
+      params.yaml:
+        download.n_loc: 1
+        download.year: 2023
+    outs:
+    - path: ass_3/data/
+      hash: md5
+      md5: d609408edc162cbdebe1455c68115b52.dir
+      size: 6211151
+      nfiles: 1
