@@ -3,7 +3,6 @@ import sys
 from os import listdir
 import os
 
-
 def valid_fields(csv_file):
     """
     Returns the valid column names from the CSV file.

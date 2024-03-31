@@ -1,5 +1,5 @@
 download:
   year: 2023
-  n_loc: 3
+  n_loc: 5
 evaluate:
   seed: 23

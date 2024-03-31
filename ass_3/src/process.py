@@ -4,7 +4,6 @@ import sys
 from os import listdir
 import os
 
-
 def compute_avg(csv_file, field_names):
     """
     Given a csv file and the required field names, 
