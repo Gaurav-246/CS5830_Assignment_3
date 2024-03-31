@@ -9,22 +9,22 @@ stages:
       size: 5645
     params:
       params.yaml:
-        download.n_loc: 5
+        download.n_loc: 3
         download.year: 2023
     outs:
     - path: ass_3/data/
       hash: md5
-      md5: 08723e750027ccaeee19c71c251c9774.dir
-      size: 42308494
-      nfiles: 5
+      md5: 592eb61e3a1ac7555ceb710c11ab5072.dir
+      size: 26219663
+      nfiles: 3
   prepare:
     cmd: python3 ass_3/src/prepare.py ass_3/data/
     deps:
     - path: ass_3/data/
       hash: md5
-      md5: 08723e750027ccaeee19c71c251c9774.dir
-      size: 42308494
-      nfiles: 5
+      md5: 592eb61e3a1ac7555ceb710c11ab5072.dir
+      size: 26219663
+      nfiles: 3
     - path: ass_3/src/prepare.py
       hash: md5
       md5: ada6de9c9a7986d66d13adb53e8135ef
@@ -32,21 +32,21 @@ stages:
     outs:
     - path: ass_3/prepared
       hash: md5
-      md5: 2ab2751fa1e59fde91a23e04746c4c0c.dir
-      size: 509
+      md5: 458d3c864d618b534d2807dcdc183ef0.dir
+      size: 317
       nfiles: 2
   process:
     cmd: python3 ass_3/src/process.py ass_3/data/ ass_3/prepared/
     deps:
     - path: ass_3/data/
       hash: md5
-      md5: 08723e750027ccaeee19c71c251c9774.dir
-      size: 42308494
-      nfiles: 5
+      md5: 592eb61e3a1ac7555ceb710c11ab5072.dir
+      size: 26219663
+      nfiles: 3
     - path: ass_3/prepared/
       hash: md5
-      md5: 2ab2751fa1e59fde91a23e04746c4c0c.dir
-      size: 509
+      md5: 458d3c864d618b534d2807dcdc183ef0.dir
+      size: 317
       nfiles: 2
     - path: ass_3/src/process.py
       hash: md5
@@ -55,21 +55,21 @@ stages:
     outs:
     - path: ass_3/computed
       hash: md5
-      md5: 5f2968514d434d5e061d09ff4eefe08b.dir
-      size: 1023
+      md5: 478633418b05daa63f10bd20ff767e8f.dir
+      size: 683
       nfiles: 1
   evaluate:
     cmd: python3 ass_3/src/evaluate.py ass_3/prepared/ ass_3/computed/
     deps:
     - path: ass_3/computed/
       hash: md5
-      md5: 5f2968514d434d5e061d09ff4eefe08b.dir
-      size: 1023
+      md5: 478633418b05daa63f10bd20ff767e8f.dir
+      size: 683
       nfiles: 1
     - path: ass_3/prepared/
       hash: md5
-      md5: 2ab2751fa1e59fde91a23e04746c4c0c.dir
-      size: 509
+      md5: 458d3c864d618b534d2807dcdc183ef0.dir
+      size: 317
       nfiles: 2
     - path: ass_3/src/evaluate.py
       hash: md5
@@ -78,6 +78,6 @@ stages:
     outs:
     - path: ass_3/evaluated
       hash: md5
-      md5: 2e974c2f01c6a9bb2fd4f2c21e269e85.dir
-      size: 107
+      md5: f1b9822b31dab3c3098b900a6e675a4a.dir
+      size: 59
       nfiles: 1
