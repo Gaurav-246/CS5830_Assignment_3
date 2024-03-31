@@ -1,0 +1,10 @@
+requests
+bs4
+random
+pandas
+os
+yaml
+numpy
+sys
+os
+json
