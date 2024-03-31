@@ -26,7 +26,7 @@ def ground_truth(csv_file, field_names):
     gt_values = []
     for field in field_names:
         non_null_values = df[field].notnull()             # Finds the required values
-        ground_truth_value = df[field][non_null_values].to_numpy()    # Converting from pandas DataFrame to numpy array
+        ground_truth_value = list(df[field][non_null_values].to_numpy(dtype='float32'))    # Converting from pandas DataFrame to list
         gt_values.append(ground_truth_value)
     print('Ground Truth values extracted for file',csv_file[-15:],' !')
     return gt_values                                      # Returns a list of GTs for each validfield name

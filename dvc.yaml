@@ -23,3 +23,11 @@ stages:
     - ass_3/src/process.py
     outs:
     - ass_3/computed
+  evaluate:
+    cmd: python3 ass_3/src/evaluate.py ass_3/prepared/ ass_3/computed/
+    deps:
+    - ass_3/computed/
+    - ass_3/prepared/
+    - ass_3/src/evaluate.py
+    outs:
+    - ass_3/evaluated
