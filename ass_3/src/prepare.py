@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 from os import listdir
+import os
 
 def valid_fields(csv_file):
     df = pd.read_csv(csv_file, dtype='unicode')
@@ -33,7 +34,13 @@ def ground_truth(csv_file, field_names):
 def main():
     data_dir_path = sys.argv[1]
     filenames = listdir(data_dir_path)                    # Lists all csv files
-    csv_files = [data_dir_path + '/' + filename for filename in filenames if filename.endswith(".csv")]
+    csv_files = [data_dir_path + filename for filename in filenames if filename.endswith(".csv")]
+
+    prepared_dir_path = '/home/laog/CS5830_Assignment_3/ass_3/prepared'
+    
+    if not os.path.exists (prepared_dir_path) :           # Creates the folder corresponding to the above path
+        os.makedirs(prepared_dir_path)
+        print('Created prepared dir')
 
     list_of_valid_fields = []
     list_of_gt_values = []
@@ -42,12 +49,12 @@ def main():
         list_of_valid_fields.append(common_field_names)   # Get list of fields   
         list_of_gt_values.append(ground_truth(csv_file, ['Monthly'+item for item in common_field_names]))
     
-    with open(data_dir_path + '/' + 'list_of_fields.txt','w') as f:
+    with open(prepared_dir_path + '/' + 'list_of_fields.txt','w') as f:
         for line in list_of_valid_fields:
             f.write(f"{line}\n")
     print('Created list_of_fields.txt !')
 
-    with open(data_dir_path + '/' +'list_of_gt_values.txt','w') as f:
+    with open(prepared_dir_path + '/' + 'list_of_gt_values.txt','w') as f:
         for line in list_of_gt_values:
             f.write(f"{line}\n")
     print('Created list_of_gt_values.txt !')

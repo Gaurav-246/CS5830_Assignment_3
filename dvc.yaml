@@ -8,3 +8,10 @@ stages:
     - download.year
     outs:
     - ass_3/data/
+  prepare:
+    cmd: python3 ass_3/src/prepare.py ass_3/data/
+    deps:
+    - ass_3/data/
+    - ass_3/src/prepare.py
+    outs:
+    - ass_3/prepared
