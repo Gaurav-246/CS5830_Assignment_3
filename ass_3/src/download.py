@@ -32,7 +32,7 @@ def download_dataset(n_loc, csv_urls, download_path):
     for csv_url in random_csv_urls:
         filename = os.path.join(download_path, csv_url.split('/')[-1])
         filenames.append(filename)
-        print('Downloading file ', i+1,' : ', filename[-15:])
+        print('Downloading file ', i+1,' : ', filename[-15:]) # -15 represents the last 15 characters of the path, i.e, the file name
         response = requests.get(csv_url)
         with open(filename, 'wb') as f:                       # Downloads the files to the download_path
             f.write(response.content)        
@@ -46,14 +46,14 @@ def validate_dataset(filenames):
 
     valid_csv_files = []
     for filename in filenames:
-        df = pd.read_csv(filename)                            # Read CSV
+        df = pd.read_csv(filename, dtype='unicode')                            # Read CSV
         daily_col_names = []
         monthly_col_names = []
         for column_name in df.columns:
             if 'Daily' in column_name:
-                daily_col_names.append(column_name[5:])       # Store Columns with Daily data
+                daily_col_names.append(column_name[5:])       # Store Column names with Daily data
             if 'Monthly' in column_name:
-                monthly_col_names.append(column_name[7:])     # Store Columns with Monthly data
+                monthly_col_names.append(column_name[7:])     # Store Column names with Monthly data
 
         common_col_names = []
         for i in daily_col_names:
@@ -64,7 +64,7 @@ def validate_dataset(filenames):
         for common_col in common_col_names:
             if df['Daily'+common_col].count()!=0 and df['Monthly'+common_col].count()!=0:       # Store only valid csv files
                 print('The file ', filename[-15:], ' is valid with daily and monthly data existing for the column : ', common_col)
-                valid_csv_files.append(filename)             
+                valid_csv_files.append(filename)              # -15 represents the last 15 characters of the path, i.e, the file name
             else:
                 print('The file ', filename[-15:], ' is invalid')
                 os.remove(filename)                                                             # Delete the invlid csv files

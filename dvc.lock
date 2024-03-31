@@ -5,8 +5,8 @@ stages:
     deps:
     - path: ass_3/src/download.py
       hash: md5
-      md5: ea9b46360f2a9ea87056aed1034716ba
-      size: 5290
+      md5: c420e02e62907d2a28e22b67fe4f3b99
+      size: 5307
     params:
       params.yaml:
         download.n_loc: 1
@@ -14,6 +14,6 @@ stages:
     outs:
     - path: ass_3/data/
       hash: md5
-      md5: d609408edc162cbdebe1455c68115b52.dir
-      size: 6211151
+      md5: 25fdf8849d4a0ce62624ea3e856df832.dir
+      size: 7111011
       nfiles: 1
