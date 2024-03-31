@@ -10,7 +10,6 @@ stages:
     params:
       params.yaml:
         download.n_loc: 3
-        download.seed: 42
         download.year: 2023
     outs:
     - path: ass_3/data/

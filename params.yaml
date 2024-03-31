@@ -1,4 +1,5 @@
 download:
   year: 2023
   n_loc: 3
-  seed: 42
+evaluate:
+  seed: 12

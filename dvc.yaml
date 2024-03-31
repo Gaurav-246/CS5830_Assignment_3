@@ -6,7 +6,6 @@ stages:
     params:
     - download.n_loc
     - download.year
-    - download.seed
     outs:
     - ass_3/data/
   prepare:
