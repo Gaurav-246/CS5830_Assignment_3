@@ -2,4 +2,4 @@ download:
   year: 2023
   n_loc: 3
 evaluate:
-  seed: 72
+  seed: 9999
