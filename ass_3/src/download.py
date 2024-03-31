@@ -70,8 +70,8 @@ def validate_dataset(filenames):
                 os.remove(filename)                                                             # Delete the invlid csv files
                 print('File ', filename[-15:], 'deleted')
 
-    print('Total number of sampled files : ', len(filenames))
-    print('Number of valid files are : ', len(valid_csv_files))
+    print('\nTotal number of sampled files : ', len(filenames))
+    print('Number of valid files are : ', len(valid_csv_files),'\n')
     return valid_csv_files
 
 #########################################################################
@@ -90,7 +90,7 @@ def main():
     final_valid_files = []
     if not os.path.exists (csv_download_path) :                 # Creates the folder corresponding to the above path
         os.makedirs(csv_download_path)
-        print('Created data dir')
+        print('\nCreated data dir\n')
 
     while num_of_valid_files < n_loc:                           # Keep sampling till you get the required number of valid files
 

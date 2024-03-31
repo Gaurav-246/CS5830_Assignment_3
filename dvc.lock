@@ -5,33 +5,56 @@ stages:
     deps:
     - path: ass_3/src/download.py
       hash: md5
-      md5: 4b1eb0206d34b9c665c021873699bf99
-      size: 5461
+      md5: e4fe05abe76dd5d31a4087e624d7ad21
+      size: 5472
     params:
       params.yaml:
-        download.n_loc: 2
+        download.n_loc: 3
         download.year: 2023
     outs:
     - path: ass_3/data/
       hash: md5
-      md5: bfa8d5f976bdb4d618b9c72e89bb1f54.dir
-      size: 15549116
-      nfiles: 2
+      md5: 9c2a02d649d51c880efc49098cfcf249.dir
+      size: 14557180
+      nfiles: 3
   prepare:
     cmd: python3 ass_3/src/prepare.py ass_3/data/
     deps:
     - path: ass_3/data/
       hash: md5
-      md5: bfa8d5f976bdb4d618b9c72e89bb1f54.dir
-      size: 15549116
-      nfiles: 2
+      md5: 9c2a02d649d51c880efc49098cfcf249.dir
+      size: 14557180
+      nfiles: 3
     - path: ass_3/src/prepare.py
       hash: md5
-      md5: fff4dede45fa4998417a5b78e78d1ac1
-      size: 2716
+      md5: be0ed2e977bb83c950133ddba1a5bbfd
+      size: 2775
     outs:
     - path: ass_3/prepared
       hash: md5
-      md5: 93af9a52042037f465319de47a1bd2f7.dir
-      size: 318
+      md5: b4bc0737f1cb96ad54eba33809c2d706.dir
+      size: 470
       nfiles: 2
+  process:
+    cmd: python3 ass_3/src/process.py ass_3/data/ ass_3/prepared/
+    deps:
+    - path: ass_3/data/
+      hash: md5
+      md5: 9c2a02d649d51c880efc49098cfcf249.dir
+      size: 14557180
+      nfiles: 3
+    - path: ass_3/prepared/
+      hash: md5
+      md5: b4bc0737f1cb96ad54eba33809c2d706.dir
+      size: 470
+      nfiles: 2
+    - path: ass_3/src/process.py
+      hash: md5
+      md5: 57d811147191a1ac4fe3011a4ada9ed1
+      size: 2601
+    outs:
+    - path: ass_3/computed
+      hash: md5
+      md5: a4278f34df5fb057a40f372b6eb309ab.dir
+      size: 651
+      nfiles: 1

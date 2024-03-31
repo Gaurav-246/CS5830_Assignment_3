@@ -15,3 +15,11 @@ stages:
     - ass_3/src/prepare.py
     outs:
     - ass_3/prepared
+  process:
+    cmd: python3 ass_3/src/process.py ass_3/data/ ass_3/prepared/
+    deps:
+    - ass_3/data/
+    - ass_3/prepared/
+    - ass_3/src/process.py
+    outs:
+    - ass_3/computed
