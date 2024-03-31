@@ -40,6 +40,10 @@ def main():
         csv_based_scores = []
         for j in range(len(computed_values[i])):
             field_wise_r2_score = r2_score(np.array(gt_values[i][j]), np.array(computed_values[i][j]))
+            if field_wise_r2_score >= 0.9:
+                print('Dataset is Consistent for File:',i+1,', Field :',j+1,'with R2 score = %.3f'%field_wise_r2_score)
+            else:
+                print('Dataset is Not Consistent for File:',i+1,', Field :',j+1,'with R2 score = %.3f'%field_wise_r2_score)
             csv_based_scores.append(field_wise_r2_score)
         total_scores.append(csv_based_scores)
     

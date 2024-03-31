@@ -11,14 +11,14 @@ import yaml
 def extract_csv_urls(base_url, year):                                   
     
     url = base_url + str(year) + '/'
-    valid_files = ['72798594276.csv','72582524121.csv','99999913724.csv','72642504841.csv','72475593129.csv',
-                    '74612093104.csv','99999954808.csv','72330003975.csv','72668594052.csv','72399014711.csv',
-                    '72651794039.csv','74787012834.csv','72381523161.csv']      # List of some valid file names for the year 2023
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
     csv_urls = []
-    for item in valid_files:
-        item = url + item
-        csv_urls.append(item)
-    print("Returning some valid CSV file names from year ", year, " !")
+    for link in soup.find_all('a'):
+        href = link.get('href')
+        if href.endswith('.csv'):
+            csv_urls.append(url + href)
+    print("Returning all CSV file names from year ", year, "!")
     return csv_urls                                           # Used for sampling and finding the right files 
 
 ##########################################
@@ -70,8 +70,8 @@ def validate_dataset(filenames):
                 os.remove(filename)                                                             # Delete the invlid csv files
                 print('File ', filename[-15:], 'deleted')
 
-    print('\nTotal number of sampled files : ', len(filenames))
-    print('Number of valid files are : ', len(valid_csv_files),'\n')
+    print('\nSampled ', len(filenames), 'files', )
+    print('Number of valid files : ', len(valid_csv_files))
     return valid_csv_files
 
 #########################################################################
@@ -92,17 +92,28 @@ def main():
         os.makedirs(csv_download_path)
         print('\nCreated data dir\n')
 
+    sample_count = 0
+    valid_count = 0
     while num_of_valid_files < n_loc:                           # Keep sampling till you get the required number of valid files
-
+        
         sampled_files = download_dataset(n_loc, all_csv_urls, csv_download_path)
         valid_files = validate_dataset(sampled_files)
+        sample_count+=len(sampled_files)
+        valid_count+=len(valid_files)
+        print('Totally sampled ',sample_count,'files so far')
+        print('Total number of Valid files so far : ',valid_count,'\n')
         final_valid_files.append(valid_files)
         num_of_valid_files += len(valid_files)
     
     if num_of_valid_files > n_loc:                              # Don't consider any excess files; Ex: Say n_loc = 5, and you get 2 valid files per sampling, 
-        excess_num_of_files = num_of_valid_files - n_loc        # then you end up with 6 valid files. Don't consider the last file.
+        excess_num_of_files = num_of_valid_files - n_loc        # then you end up with 6 valid files by the 3rd sampling. Don't consider the last file.
+        print('Excess number of valid files : ', excess_num_of_files)
+        print('Deleting excess files : ')
+        for i in range(excess_num_of_files):
+            excess_file = final_valid_files[n_loc+i]
+            os.remove(csv_download_path + '/' + excess_file)                                                            
+            print('File ', excess_file, 'deleted')
         final_valid_files = final_valid_files[:len(final_valid_files) - excess_num_of_files]
-
 
 if __name__ == "__main__":
     main()
